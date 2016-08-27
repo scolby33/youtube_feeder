@@ -32,21 +32,21 @@ Development |develop_build| |develop_coverage| |develop_documentation| |develop_
     :alt: Stable Supported Python Versions
 
 
- Installation
- ------------
+Installation
+------------
 
 
- Contributing
- ------------
-
- 
- Changelog
- ---------
-
- Changes as of 26 August 2016
+Contributing
+------------
 
 
- License
- -------
+Changelog
+---------
+
+Changes as of 26 August 2016
+
+
+License
+-------
 
  MIT. See the :code:`LICENSE.rst` file for more information.
