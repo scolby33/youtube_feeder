@@ -1,0 +1,11 @@
+[run]
+branch = True
+source = youtube_feeder
+
+[paths]
+source =
+    src/youtube_feeder
+    .tox/*/lib/python*/site-packages/youtube_feeder
+
+[report]
+show_missing = True
