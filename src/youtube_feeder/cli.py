@@ -163,8 +163,9 @@ def main(ctx, config, subscriptions, output_directory, advanced_sorting):
                     sleep(1)
                     try:
                         os.unlink('{}.temp'.format(path))
-                    except os.FileNotFoundError:
-                        pass
+                    except OSError as e:
+                        if e.errno != errno.ENOENT:
+                            raise
                     v['downloaded'] = True
                     continue
     finally:
