@@ -25,7 +25,7 @@ CLASSIFIERS = [
 ]
 INSTALL_REQUIRES = ["click", "feedparser", "opml", "pafy", "youtube-dl"]
 EXTRAS_REQUIRE = {}
-TESTS_REQUIRE = ["tox"]
+TESTS_REQUIRE = []
 ENTRY_POINTS = {
     "console_scripts": [
         "youtube_feeder = youtube_feeder.cli:main",
