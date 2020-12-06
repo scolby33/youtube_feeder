@@ -18,12 +18,19 @@ CLASSIFIERS = [
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
     "Programming Language :: Python",
-    "Programming Language :: Python :: 3.5",
+    "Programming Language :: Python :: 3.9",
     "Topic :: Internet",
     "Topic :: Multimedia :: Video",
     "Topic :: Utilities",
 ]
-INSTALL_REQUIRES = ["click", "feedparser", "opml", "pafy", "youtube-dl"]
+INSTALL_REQUIRES = [
+    "click",
+    "click_pathlib",
+    "feedparser",
+    "opml",
+    "tqdm",
+    "youtube-dl",
+]
 EXTRAS_REQUIRE = {}
 TESTS_REQUIRE = []
 ENTRY_POINTS = {
