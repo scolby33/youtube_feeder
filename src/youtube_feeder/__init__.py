@@ -17,4 +17,4 @@ __copyright__ = "Copyright (c) 2020 Scott Colby"
 # from .b_module import Class, function
 from .cli import main as cli
 
-__all__ = [cli]
+__all__ = ["cli"]
