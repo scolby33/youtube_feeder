@@ -10,7 +10,7 @@ __author__ = "Scott Colby"
 __email__ = "scolby33@gmail.com"
 
 __license__ = "MIT License"
-__copyright__ = "Copyright (c) 2016 Scott Colby"
+__copyright__ = "Copyright (c) 2020 Scott Colby"
 
 # perform project imports here, e.g.
 # from . import a_module
