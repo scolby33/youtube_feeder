@@ -1,7 +1,7 @@
 Authors
 =======
 
-:code:`youtube_feeder` is maintained by Scott Colby <scolby33@gmail.com>
+:code:`youtube_feeder` is maintained by Scott Colby <scott@scolby.com>
 
 Contributors
 ------------
