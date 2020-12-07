@@ -163,7 +163,7 @@ def main(ctx, config, subscriptions, output_directory, advanced_sorting):
             }
 
     configuration["videos"] = merge_preserving_old_values_and_new_keys(
-        configuration["videos"], new_videos
+        configuration.get("videos", {}), new_videos
     )
     write_JSON(configuration, config)
 
