@@ -44,6 +44,8 @@ YTDL_CONFIG = {
     "call_home": False,
 }
 
+LIVE_EVENT_ERROR_PREFIX = "This live event will begin in"
+
 AnyPath = Union[str, bytes, os.PathLike[str], os.PathLike[bytes]]
 OpenFile = Union[AnyPath, int]
 
@@ -186,6 +188,9 @@ def main(ctx, config, subscriptions, output_directory, advanced_sorting):
             try:
                 ytdl.download((vid["link"],))
                 vid["downloaded"] = True
+            except youtube_dl.utils.DownloadError as exc:
+                if not exc.exc_info[1].args[0].startswith(LIVE_EVENT_ERROR_PREFIX):
+                    raise
             except KeyboardInterrupt:
                 sys.stdout.write("\033[K")
                 click.echo("\nSkipping...press `^C` again within 1 second to exit")
