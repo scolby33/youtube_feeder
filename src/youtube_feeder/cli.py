@@ -46,7 +46,7 @@ YTDL_CONFIG = {
 
 IGNORABLE_ERROR_PREFIXES = {
     "This live event will begin in",
-    "Premiers in",
+    "Premieres in",
 }
 
 AnyPath = Union[str, bytes, os.PathLike[str], os.PathLike[bytes]]
@@ -193,8 +193,12 @@ def main(ctx, config, subscriptions, output_directory, advanced_sorting):
                 vid["downloaded"] = True
             except youtube_dl.utils.DownloadError as exc:
                 for error_prefix in IGNORABLE_ERROR_PREFIXES:
-                    if exc.exc_info[1].args[0].startswith(error_prefix):
-                        break
+                    try:
+                        if exc.exc_info[1].args[0].startswith(error_prefix):
+                            break
+                    except:
+                        # failed to parse the exception, so it's not one we know about
+                        raise exc
                 else:  # nobreak
                     raise
             except KeyboardInterrupt:
