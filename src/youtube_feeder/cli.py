@@ -12,10 +12,12 @@ problems--the code will get executed twice:
 
 Also see (1) from http://click.pocoo.org/5/setuptools/#setuptools-integration
 """
+from collections import Counter
 import errno
 import json
 import os
 from pathlib import Path
+from pprint import pformat
 import sys
 from time import sleep
 from typing import Any, AnyStr, Dict, Mapping, Optional, TypeVar, Union
@@ -157,15 +159,26 @@ def main(ctx, config, subscriptions, output_directory, advanced_sorting):
     feeds = [subscription.xmlUrl for subscription in subs[0]]
     new_videos = {}
     click.echo("Downloading Feeds")
-    for feed in tqdm(feeds):
-        f = feedparser.parse(feed)
-        for entry in f.entries:
-            new_videos[entry.id] = {
-                "author": entry.author,
-                "title": entry.title,
-                "link": entry.link,
-                "downloaded": False,
-            }
+
+    statuses = Counter()
+
+    try:
+        for feed in tqdm(feeds):
+            f = feedparser.parse(feed)
+            sleep(0.25)  # be nice to youtube servers
+            statuses.update((f.status,))
+            if not (200 <= f.status < 300):
+                click.echo(f"Error grabbing feed {feed}", err=True)
+                continue
+            for entry in f.entries:
+                new_videos[entry.id] = {
+                    "author": entry.author,
+                    "title": entry.title,
+                    "link": entry.link,
+                    "downloaded": False,
+                }
+    finally:
+        click.echo(f"Feed download status counts: {pformat(dict(statuses))}")
 
     configuration["videos"] = merge_preserving_old_values_and_new_keys(
         configuration.get("videos", {}), new_videos
