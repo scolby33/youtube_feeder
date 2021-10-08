@@ -27,23 +27,33 @@ import click_pathlib
 import feedparser
 import opml
 from tqdm import tqdm
-import youtube_dl
+import yt_dlp as youtube_dl
 
 APP_NAME = "youtube_feeder"
 CONFIG_LOCATION = Path(click.get_app_dir(APP_NAME))
 CONFIG_FILE = "config.json"
 SUBSCRIPTIONS_FILE = "subscriptions.opml"
 YTDL_CONFIG = {
-    "format": "(bestvideo[vcodec^=av01][height>=1080][fps>30]/bestvideo[vcodec=vp9.2][height>=1080][fps>30]/bestvideo[vcodec=vp9][height>=1080][fps>30]/bestvideo[vcodec^=av01][height>=1080]/bestvideo[vcodec=vp9.2][height>=1080]/bestvideo[vcodec=vp9][height>=1080]/bestvideo[height>=1080]/bestvideo[vcodec^=av01][height>=720][fps>30]/bestvideo[vcodec=vp9.2][height>=720][fps>30]/bestvideo[vcodec=vp9][height>=720][fps>30]/bestvideo[vcodec^=av01][height>=720]/bestvideo[vcodec=vp9.2][height>=720]/bestvideo[vcodec=vp9][height>=720]/bestvideo[height>=720]/bestvideo)+(bestaudio[acodec=opus]/bestaudio)/best",
+    # "format": "(bestvideo[vcodec^=av01][height>=1080][fps>30]/bestvideo[vcodec=vp9.2][height>=1080][fps>30]/bestvideo[vcodec=vp9][height>=1080][fps>30]/bestvideo[vcodec^=av01][height>=1080]/bestvideo[vcodec=vp9.2][height>=1080]/bestvideo[vcodec=vp9][height>=1080]/bestvideo[height>=1080]/bestvideo[vcodec^=av01][height>=720][fps>30]/bestvideo[vcodec=vp9.2][height>=720][fps>30]/bestvideo[vcodec=vp9][height>=720][fps>30]/bestvideo[vcodec^=av01][height>=720]/bestvideo[vcodec=vp9.2][height>=720]/bestvideo[vcodec=vp9][height>=720]/bestvideo[height>=720]/bestvideo)+(bestaudio[acodec=opus]/bestaudio)/best",
     "outtmpl": "%(title)s-%(id)s.%(ext)s",
-    "writesubtitles": True,
-    "allsubtitles": True,
+    # "writesubtitles": True,
+    # "allsubtitles": True,
     "postprocessors": [
-        {"key": "FFmpegMetadata"},
+        {
+            "key": "FFmpegMetadata",
+            "add_chapters": True,
+            "add_metadata": True,
+        },
         {"key": "FFmpegEmbedSubtitle"},
     ],
+    # "merge_output_format": "mkv",
+    # "call_home": False,
+    "restrictfilenames": True,
+    "prefer_free_formats": True,
+    "check_formats": True,
     "merge_output_format": "mkv",
-    "call_home": False,
+    "subtitleslangs": "all,-live_chat",
+    "format_sort": ["vcodec:avc"],
 }
 
 IGNORABLE_ERROR_PREFIXES = {

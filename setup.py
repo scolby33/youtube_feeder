@@ -29,7 +29,7 @@ INSTALL_REQUIRES = [
     "feedparser",
     "opml",
     "tqdm",
-    "youtube-dl",
+    "yt-dlp",
 ]
 EXTRAS_REQUIRE = {}
 TESTS_REQUIRE = []
