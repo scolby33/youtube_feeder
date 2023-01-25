@@ -40,11 +40,29 @@ YTDL_CONFIG = {
     # "allsubtitles": True,
     "postprocessors": [
         {
+            "key": "SponsorBlock",
+            "categories": {
+                "sponsor",
+                "selfpromo",
+                "interaction",
+                "intro",
+                "outro",
+                "preview",
+                "music_offtopic",
+            },
+            "api": "https://sponsor.ajay.app",
+            "when": "after_filter",
+        },
+        {"key": "FFmpegEmbedSubtitle"},
+        {
+            "key": "ModifyChapters",
+            "remove_sponsor_segments": {"sponsor", "outro"},
+        },
+        {
             "key": "FFmpegMetadata",
             "add_chapters": True,
             "add_metadata": True,
         },
-        {"key": "FFmpegEmbedSubtitle"},
     ],
     # "merge_output_format": "mkv",
     # "call_home": False,
