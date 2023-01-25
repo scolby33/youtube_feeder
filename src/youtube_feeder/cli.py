@@ -68,7 +68,7 @@ YTDL_CONFIG = {
     # "call_home": False,
     "restrictfilenames": True,
     "prefer_free_formats": True,
-    "check_formats": True,
+    "check_formats": "selected",
     "merge_output_format": "mkv",
     "subtitleslangs": "all,-live_chat",
     "format_sort": ["vcodec:avc"],
