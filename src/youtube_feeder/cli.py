@@ -196,7 +196,6 @@ def main(ctx, config, subscriptions, output_directory, advanced_sorting):
     try:
         for feed in tqdm(feeds):
             f = feedparser.parse(feed)
-            sleep(0.25)  # be nice to youtube servers
             statuses.update((f.status,))
             if not (200 <= f.status < 300):
                 click.echo(f"Error grabbing feed {feed}", err=True)
