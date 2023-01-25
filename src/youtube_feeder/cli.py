@@ -189,10 +189,9 @@ def main(ctx, config, subscriptions, output_directory, advanced_sorting):
 
     feeds = [subscription.xmlUrl for subscription in subs[0]]
     new_videos = {}
-    click.echo("Downloading Feeds")
-
     statuses = Counter()
 
+    click.echo("Downloading Feeds")
     try:
         for feed in tqdm(feeds):
             f = feedparser.parse(feed)
