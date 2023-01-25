@@ -76,7 +76,7 @@ YTDL_CONFIG = {
     "noprogress": False,
 }
 
-IGNORABLE_ERROR_PREFIXES = {
+IGNORABLE_ERROR_STRINGS = {
     "This live event will begin in",
     "Premieres in",
 }
@@ -235,9 +235,9 @@ def main(ctx, config, subscriptions, output_directory, advanced_sorting):
                 ytdl.download((vid["link"],))
                 vid["downloaded"] = True
             except youtube_dl.utils.DownloadError as exc:
-                for error_prefix in IGNORABLE_ERROR_PREFIXES:
+                for error_string in IGNORABLE_ERROR_STRINGS:
                     try:
-                        if exc.exc_info[1].args[0].startswith(error_prefix):
+                        if error_string in exc.exc_info[1].args[0]:
                             break
                     except:
                         # failed to parse the exception, so it's not one we know about
