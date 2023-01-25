@@ -72,6 +72,8 @@ YTDL_CONFIG = {
     "merge_output_format": "mkv",
     "subtitleslangs": "all,-live_chat",
     "format_sort": ["vcodec:avc"],
+    "quiet": True,
+    "noprogress": False,
 }
 
 IGNORABLE_ERROR_PREFIXES = {
