@@ -74,6 +74,7 @@ YTDL_CONFIG = {
     "format_sort": ["vcodec:avc"],
     "quiet": True,
     "noprogress": False,
+    "usenetrc": True,
 }
 
 IGNORABLE_ERROR_STRINGS = {
