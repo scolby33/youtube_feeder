@@ -77,6 +77,7 @@ YTDL_CONFIG = {
     "quiet": True,
     "noprogress": False,
     "usenetrc": True,
+    "netrc_location": Path(os.environ.get("XDG_CONFIG_HOME")) / "yt-dlp/netrc",
 }
 
 IgnorableError = namedtuple("IgnorableError", ["error_string", "mark_downloaded"])
