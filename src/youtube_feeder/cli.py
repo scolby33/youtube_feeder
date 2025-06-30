@@ -13,14 +13,13 @@ problems--the code will get executed twice:
 Also see (1) from http://click.pocoo.org/5/setuptools/#setuptools-integration
 """
 from collections import Counter
-import errno
 import json
 import os
 from pathlib import Path
 from pprint import pformat
 import sys
 from time import sleep
-from typing import Any, AnyStr, Dict, Mapping, Optional, TypeVar, Union
+from typing import Any, Dict, Mapping, Optional, TypeVar, Union
 
 import click
 import click_pathlib
