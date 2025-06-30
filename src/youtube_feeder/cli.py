@@ -12,7 +12,8 @@ problems--the code will get executed twice:
 
 Also see (1) from http://click.pocoo.org/5/setuptools/#setuptools-integration
 """
-from collections import Counter
+
+from collections import Counter, namedtuple
 import json
 import os
 from pathlib import Path
@@ -78,9 +79,16 @@ YTDL_CONFIG = {
     "usenetrc": True,
 }
 
-IGNORABLE_ERROR_STRINGS = {
-    "This live event will begin in",
-    "Premieres in",
+IgnorableError = namedtuple("IgnorableError", ["error_string", "mark_downloaded"])
+
+IGNORABLE_ERRORS = {
+    IgnorableError("This live event will begin in", False),
+    IgnorableError("This live event has ended", False),
+    IgnorableError("Premieres in", False),
+    IgnorableError(
+        "Video unavailable. The uploader has not made this video available in your country",
+        True,
+    ),
 }
 
 AnyPath = Union[str, bytes, os.PathLike[str], os.PathLike[bytes]]
@@ -235,13 +243,16 @@ def main(ctx, config, subscriptions, output_directory, advanced_sorting):
                 ytdl.download((vid["link"],))
                 vid["downloaded"] = True
             except youtube_dl.utils.DownloadError as exc:
-                for error_string in IGNORABLE_ERROR_STRINGS:
-                    try:
-                        if error_string in exc.exc_info[1].args[0]:
-                            break
-                    except:
-                        # failed to parse the exception, so it's not one we know about
-                        raise exc
+                try:
+                    exc_arg = exc.exc_info[1].args[0]
+                except:
+                    # failed to parse the exception, so it's not one we know about
+                    raise exc
+                for ignorable_error in IGNORABLE_ERRORS:
+                    if ignorable_error.error_string in exc_arg:
+                        if ignorable_error.mark_downloaded:
+                            vid["downloaded"] = True
+                        break
                 else:  # nobreak
                     raise
             except KeyboardInterrupt:
